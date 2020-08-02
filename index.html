@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>干貝醬</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 微軟正黑體;
+        }
+        
+        .item {
+            /* border: 1px solid #aaa; */
+            box-shadow: #ddd 0px 0px 10px;
+            border-radius: 10px;
+            margin: 10px 0px;
+            padding: 20px;
+        }
+        
+        .loading {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            text-align: center;
+            background-color: #ffffffcc;
+            font-size: 46px;
+            color: #777777;
+            display: none;
+        }
+        
+        .loading .loading-content {
+            padding-top: calc(50vh - 80px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="loading">
+        <div class="loading-content">
+            <div class="spinner-grow text-primary" role="status"></div>
+            <div class="spinner-grow text-secondary" role="status"></div>
+            <div class="spinner-grow text-success" role="status"></div>
+            <div class="spinner-grow text-danger" role="status"></div>
+            <div class="spinner-grow text-warning" role="status"></div>
+            <div class="spinner-grow text-info" role="status"></div>
+            <div class="spinner-grow text-light" role="status"></div>
+            <div class="spinner-grow text-dark" role="status"></div>
+            <div class="text">loading ...</div>
+        </div>
+    </div>
+
+    <div class="container">
+
+
+        <hr>
+        <h1 class="text-center h3">松賞手作工坊-填單系統</h1>
+        <hr>
+        <div class="row">
+            <!-- employee -->
+            <div class="col-sm">
+                <div class="item employee">
+                    <h4>員工</h4>
+                    <div class="form-group row">
+                        <label class="col-3">姓名</label>
+                        <div class="col-9">
+                            <select class="form-control form-control-sm" id="employeeName">
+                                <option selected disabled>--請選擇--</option>
+                                <option>呂紹民</option>
+                                <option>黃任遠</option>
+                                <option>林詠菖</option>
+                                <option>陳建宏</option>
+                                <option>黃彥碩</option>
+                                <option>蘇凱翊</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">日期</label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="date" id="date" placeholder="填單日期">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- customer -->
+            <div class="col-sm">
+                <div class="item customer">
+                    <h4>客戶</h4>
+
+                    <div class="form-group row">
+                        <label class="col-3">姓名</label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" id="customerName" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">運送</label>
+                        <div class="col-9">
+                            <select class="form-control form-control-sm" id="deliver">
+                                <option selected disabled>--請選擇--</option>
+                                <option>親送 </option>
+                                <option>宅急便 </option>
+                                <option>蝦皮 </option>
+                                <option>pchome </option>
+                                <option>7-11店到店 </option>
+                                <option>親送-台北 </option>
+                                <option>全家店到店 </option>
+                                <option>官網-711店到店 </option>
+                                <option>官網-全家店到店 </option>
+                                <option>官網-宅配</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">地址</label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" id="address" placeholder="運送地址">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">手機</label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" id="phone" placeholder="手機">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">備註</label>
+                        <div class="col-9">
+                            <textarea class="form-control form-control-sm" type="text" id="note" placeholder="備註"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- order -->
+            <div class="col-sm">
+
+                <div class="item order">
+                    <h4>訂單</h4>
+                    <div class="form">
+
+                    </div>
+                    <button class="btn btn-sm btn-success" onclick="addOrder()">新增</button>
+                    <button class="btn btn-sm btn-danger" onclick="removeOrder()">刪除</button>
+                </div>
+            </div>
+        </div>
+        <div class="div text-center m-3">
+            <button class="btn btn-sm btn-primary p3" onclick="submit()">送出</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+        $(() => {
+            addOrder();
+        })
+
+        function addOrder() {
+            var orderQuantity = $(".order .form-group").length;
+            var html = `
+                <div class="form-group row">
+                    <label class="col-3">商品${orderQuantity+1}</label>
+                    <div class="col-6">
+                        <select class="form-control form-control-sm" id="orderName${orderQuantity+1}">
+                            <option selected disabled>--請選擇--</option>
+                            <option>干貝醬(辣)-350 </option>
+                            <option>辣椒醬-200 </option>
+                            <option>干貝醬(辣)(員工)-170 </option>
+                            <option>辣椒醬(員工)-110 </option>
+                            <option>禮盒(2干)-699 </option>
+                            <option>禮盒(1干1辣)-549 </option>
+                            <option>禮盒(2辣)-400 </option>
+                            <option>辣椒醬(加購)-150 </option>
+                            <option>干貝醬(辣) sample </option>
+                            <option>辣椒醬 sample </option>
+                            <option>辣椒醬-250 </option>
+                            <option>試吃包</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control form-control-sm" type="number" id="orderQuantity${orderQuantity+1}" placeholder="數量">
+                    </div>
+                </div>
+            `;
+            $(".order .form").append(html);
+        }
+
+        function removeOrder() {
+            var orderQuantity = $(".order .form-group").length;
+            if (orderQuantity <= 1)
+                return;
+            $(".order .form .form-group").last().remove();
+        }
+
+        function submit() {
+            $(".loading").show();
+
+            var formEls = $("input, select, textarea");
+            var anyEmpty = false;
+            var param = {};
+            $.each(formEls, function(i, formEl) {
+                formEl = $(formEl);
+                var formKey = formEl.attr("id");
+                var formValue = formEl.val();
+                console.log(formKey + "_" + formValue)
+
+                if ((formValue == null || formValue.trim() == "") && formEl.prop("tagName") != "TEXTAREA") {
+                    anyEmpty = true;
+                    alert("請填寫所有欄位。")
+                    $(".loading").hide();
+                    return false;
+                }
+
+                param[formKey] = formValue;
+            });
+
+            if (!anyEmpty) {
+                $.ajax({
+                    type: "get",
+                    url: "https://script.google.com/macros/s/AKfycbyU-oNR5T8lHw_yiz1mjvUsYgy1kZVtaPPv17dab3iIvfTywFQ/exec",
+                    data: param,
+                    dataType: "JSON",
+                    success: function(response) {
+                        $(".loading").hide();
+                        alert('完成');
+                        location.reload();
+                    }
+                });
+            }
+
+        }
+    </script>
+</body>
+
+</html>
